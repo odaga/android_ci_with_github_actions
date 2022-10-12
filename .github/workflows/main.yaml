@@ -1,31 +1,38 @@
-name: Workflow to upload APK to TestApp.io
+name: Android CI
+
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  android:
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
+      - uses: actions/checkout@v3
+      - name: set up JDK 11
+        uses: actions/setup-java@v3
         with:
-          java-version: 1.8
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
 
-      - name: Build release
-        run: ./gradlew assembleDebug
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew build
 
+      #Upload the built apk file to testapp for testing
       - name: Upload APK TestApp.io
-        uses: testappio/github-action@v5
-        with:
-          api_token: ${{secrets.TESTAPPIO_API_TOKEN}}
-          app_id: ${{secrets.TESTAPPIO_APP_ID}}
-          file: app/build/outputs/apk/debug/app-debug.apk
-          release_notes: ""
-          git_release_notes: true
-          include_git_commit_id: false
-          notify: true
+          uses: testappio/github-action@v5
+          with:
+            api_token: ${{secrets.TESTAPPIO_API_TOKEN}}
+            app_id: ${{secrets.TESTAPPIO_APP_ID}}
+            file: app/build/outputs/apk/debug/app-debug.apk
+            release_notes: ""
+            git_release_notes: true
+            include_git_commit_id: false
+            notify: true
