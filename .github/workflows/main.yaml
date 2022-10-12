@@ -27,7 +27,7 @@ jobs:
 
       #Upload the built apk file to testapp for testing
       - name: Upload APK to TestApp.io
-        uses: testapp/github-actions@v5
+        uses: testappio/github-actions@v5
         with:
           api_token: ${{secrets.TESTAPPIO_API_TOKEN}}
           app_id: ${{secrets.TESTAPPIO_APP_ID}}
