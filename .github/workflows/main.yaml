@@ -26,13 +26,13 @@ jobs:
         run: ./gradlew build
 
       #Upload the built apk file to testapp for testing
-      - name: Upload APK to TestApp.io
-        uses: testappio/github-actions@v5
-        with:
-          api_token: ${{secrets.TESTAPPIO_API_TOKEN}}
-          app_id: ${{secrets.TESTAPPIO_APP_ID}}
-          file: app/build/outputs/apk/debug/app-debug.apk
-          release_note: "New release"
-          git_release_notes: true
-          include_git_commit_id: true
-          notify: true
+      - name: Upload APK TestApp.io
+          uses: testappio/github-action@v5
+          with:
+            api_token: ${{secrets.TESTAPPIO_API_TOKEN}}
+            app_id: ${{secrets.TESTAPPIO_APP_ID}}
+            file: app/build/outputs/apk/debug/app-debug.apk
+            release_notes: ""
+            git_release_notes: true
+            include_git_commit_id: false
+            notify: true
