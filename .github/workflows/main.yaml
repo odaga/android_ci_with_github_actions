@@ -23,11 +23,11 @@ on:
         - name: Build with Gradle
           run: ./gradlew build
 
-        - name: Upload APK file
-          uses: actions/upload-arifact@2.1.4
-          with:
-            name: app
-              path: app/build/outputs/apk/debug/app-debug.apk
+#        - name: Upload APK file
+#          uses: actions/upload-arifact@2.1.4
+#          with:
+#            name: app
+#              path: app/build/outputs/apk/debug/app-debug.apk
 
 
 
